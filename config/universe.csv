@@ -1,0 +1,13 @@
+name,sector,root,gen1,gen2,gen3,held,cost_bps,contract_months
+WTI crude,Energy,CL,CL1 Comdty,CL2 Comdty,CL3 Comdty,gen2,4,12
+Brent crude,Energy,CO,CO1 Comdty,CO2 Comdty,CO3 Comdty,gen2,4,12
+Natural gas,Energy,NG,NG1 Comdty,NG2 Comdty,NG3 Comdty,gen2,5,12
+Heating oil,Energy,HO,HO1 Comdty,HO2 Comdty,HO3 Comdty,gen2,5,12
+Gold,Metals,GC,GC1 Comdty,GC2 Comdty,GC3 Comdty,gen2,3,6
+Silver,Metals,SI,SI1 Comdty,SI2 Comdty,SI3 Comdty,gen2,4,5
+Copper,Metals,HG,HG1 Comdty,HG2 Comdty,HG3 Comdty,gen2,4,5
+Corn,Grains,C,C 1 Comdty,C 2 Comdty,C 3 Comdty,gen2,8,5
+Wheat,Grains,W,W 1 Comdty,W 2 Comdty,W 3 Comdty,gen2,8,5
+Soybeans,Grains,S,S 1 Comdty,S 2 Comdty,S 3 Comdty,gen2,8,7
+Sugar,Softs,SB,SB1 Comdty,SB2 Comdty,SB3 Comdty,gen2,10,4
+Coffee,Softs,KC,KC1 Comdty,KC2 Comdty,KC3 Comdty,gen2,10,5
