@@ -5,3 +5,5 @@ statsmodels
 matplotlib
 openpyxl
 jupyter
+xbbg
+blpapi
