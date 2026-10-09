@@ -1,5 +1,19 @@
-Step 12 QC:
-Aligned all contract-3 commodity series with an outer join.
-Missing observations range from 9 (CO3) to 149 (SB3).
-No missing dates were found in the Date column.
-Missing-data treatment deferred to Step 13.
+Step 12: Calendar alignment and panel construction
+
+Method:
+- Loaded each commodity's generic futures price history.
+- Parsed Date as a datetime field.
+- Set Date as the index.
+- Outer-joined the 12 commodity series by Date for each contract depth.
+- Created aligned panels for Contract 1, Contract 2, and Contract 3.
+
+Output:
+- Date range: 2005-01-03 to 2026-09-09.
+- 5,601 rows in each panel.
+- 12 commodities in each panel.
+- Missing observations were retained rather than removed.
+
+Quality-control result:
+- Missing observations range from 9 for Brent (CO) to 149 for Sugar (SB).
+- The identical missing-value counts across Contract 1, Contract 2, and Contract 3 suggest exchange-calendar differences or source coverage, not a contract-specific merge failure.
+- Missing-data treatment will be applied and documented in Step 13.
