@@ -33,7 +33,7 @@ C3 = df_C[['Date', 'C3']]
 df_CL = pd.read_csv('data/raw/Crudeoil.csv')
 
 CL1 = df_CL[['Date', 'CL1']]
-CL2 = df_CL[['Date', 'Cl2']]
+CL2 = df_CL[['Date', 'CL2']]
 CL3 = df_CL[['Date', 'CL3']]
 
 # Gold
