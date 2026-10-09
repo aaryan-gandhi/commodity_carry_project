@@ -1,86 +1,122 @@
+from pathlib import Path
 import pandas as pd
 
-# Load one CSV with 3 contract columns
-df_CO = pd.read_csv('data/raw/Brent(CO).csv')
+RAW_DIR = Path("data/raw")
+PROCESSED_DIR = Path("data/processed")
 
-# Brent Oil
-CO1 = df_CO[['Date', 'CO1']]
-CO2 = df_CO[['Date', 'CO2']]
-CO3 = df_CO[['Date', 'CO3']]
+FILES = {
+    "CO": "Brent(CO).csv",
+    "KC": "Coffee(KC).csv",
+    "HG": "Copper.csv",
+    "C": "Corn(C).csv",
+    "CL": "Crudeoil.csv",
+    "GC": "Gold.csv",
+    "HO": "Heatingoil(HO).csv",
+    "NG": "Naturalgas.csv",
+    "SI": "Silver(SI).csv",
+    "S": "Soybeans(S).csv",
+    "SB": "Sugar(SB).csv",
+    "W": "Wheat(W).csv",
+}
 
-# Coffee
-df_KC = pd.read_csv('data/raw/Coffee(KC).csv')
+COLUMN_NAMES = {
+    "CO": ["CO1", "CO2", "CO3"],
+    "KC": ["KC1", "KC2", "KC3"],
+    "HG": ["HG1", "HG2", "HG3"],
+    "C": ["C1", "C2", "C3"],
+    "CL": ["CL1", "Cl2", "CL3"],
+    "GC": ["GC1", "GC2", "GC3"],
+    "HO": ["HO1", "HO2", "HO3"],
+    "NG": ["NG1", "NG2", "NG3"],
+    "SI": ["SI1", "SI2", "SI3"],
+    "S": ["S1", "S2", "S3"],
+    "SB": ["SB1", "SB2", "SB3"],
+    "W": ["W1", "W2", "W3"],
+}
 
-KC1 = df_KC[['Date', 'KC1']]
-KC2 = df_KC[['Date', 'KC2']]
-KC3 = df_KC[['Date', 'KC3']]
 
-# Copper
-df_HG = pd.read_csv('data/raw/Copper.csv')
+def load_commodity_contract(ticker, contract_number):
+    """
+    Load one contract depth for one commodity.
 
-HG1 = df_HG[['Date', 'HG1']]
-HG2 = df_HG[['Date', 'HG2']]
-HG3 = df_HG[['Date', 'HG3']]
+    Example:
+    load_commodity_contract("CL", 1)
+    returns a DataFrame with Date and CL1.
+    """
+    file_path = RAW_DIR / FILES[ticker]
+    contract_column = COLUMN_NAMES[ticker][contract_number - 1]
 
-# Corn
-df_C = pd.read_csv('data/raw/Corn(C).csv')
+    df = pd.read_csv(file_path)
 
-C1 = df_C[['Date', 'C1']]
-C2 = df_C[['Date', 'C2']]
-C3 = df_C[['Date', 'C3']]
+    df = df[["Date", contract_column]].copy()
 
-# Crude Oil
-df_CL = pd.read_csv('data/raw/Crudeoil.csv')
+    df["Date"] = pd.to_datetime(df["Date"], dayfirst=True, errors="coerce")
 
-CL1 = df_CL[['Date', 'CL1']]
-CL2 = df_CL[['Date', 'CL2']]
-CL3 = df_CL[['Date', 'CL3']]
+    df[contract_column] = pd.to_numeric(
+        df[contract_column],
+        errors="coerce"
+    )
 
-# Gold
-df_GC = pd.read_csv('data/raw/Gold.csv')
+    df = df.dropna(subset=["Date"])
 
-GC1 = df_GC[['Date', 'GC1']]
-GC2 = df_GC[['Date', 'GC2']]
-GC3 = df_GC[['Date', 'GC3']]
+    df = (
+        df.sort_values("Date")
+        .drop_duplicates(subset="Date", keep="last")
+        .set_index("Date")
+    )
 
-# Heating Oil
-df_HO = pd.read_csv('data/raw/Heatingoil(HO).csv')
+    if ticker == "CL" and contract_number == 2:
+        df = df.rename(columns={"Cl2": "CL2"})
 
-HO1 = df_HO[['Date', 'HO1']]
-HO2 = df_HO[['Date', 'HO2']]
-HO3 = df_HO[['Date', 'HO3']]
+    return df
 
-# Natural Gas
-df_NG = pd.read_csv('data/raw/Naturalgas.csv')
 
-NG1 = df_NG[['Date', 'NG1']]
-NG2 = df_NG[['Date', 'NG2']]
-NG3 = df_NG[['Date', 'NG3']]
+def build_contract_panel(contract_number):
+    """
+    Outer-join every commodity at one contract depth.
 
-# Silver
-df_SI = pd.read_csv('data/raw/Silver(SI).csv')
+    Example:
+    contract_number=1 creates columns:
+    CO1, KC1, HG1, C1, CL1, GC1, HO1, NG1, SI1, S1, SB1, W1
+    """
+    series_list = []
 
-SI1 = df_SI[['Date', 'SI1']]
-SI2 = df_SI[['Date', 'SI2']]
-SI3 = df_SI[['Date', 'SI3']]
+    for ticker in FILES:
+        contract_df = load_commodity_contract(ticker, contract_number)
+        series_list.append(contract_df)
 
-# Soybeans
-df_S = pd.read_csv('data/raw/Soybeans(S).csv')
+    panel = pd.concat(series_list, axis=1, join="outer")
 
-S1 = df_S[['Date', 'S1']]
-S2 = df_S[['Date', 'S2']]
-S3 = df_S[['Date', 'S3']]
+    panel = panel.sort_index()
 
-# Sugar
-df_SB = pd.read_csv('data/raw/Sugar(SB).csv')
+    return panel
 
-SB1 = df_SB[['Date', 'SB1']]
-SB2 = df_SB[['Date', 'SB2']]
-SB3 = df_SB[['Date', 'SB3']]
 
-# Wheat
-df_W = pd.read_csv('data/raw/Wheat(W).csv')
+def print_panel_check(panel, panel_name):
+    print(f"\n--- {panel_name} ---")
+    print(f"Date range: {panel.index.min().date()} to {panel.index.max().date()}")
+    print(f"Rows: {len(panel):,}")
+    print(f"Columns: {len(panel.columns)}")
+    print("\nMissing values by column:")
+    print(panel.isna().sum().sort_values())
 
-W1 = df_W[['Date', 'W1']]
-W2 = df_W[['Date', 'W2']]
-W3 = df_W[['Date', 'W3']]
+
+if __name__ == "__main__":
+    PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
+
+    panel_1 = build_contract_panel(contract_number=1)
+    panel_2 = build_contract_panel(contract_number=2)
+    panel_3 = build_contract_panel(contract_number=3)
+
+    panel_1.to_csv(PROCESSED_DIR / "contract_panel_1.csv")
+    panel_2.to_csv(PROCESSED_DIR / "contract_panel_2.csv")
+    panel_3.to_csv(PROCESSED_DIR / "contract_panel_3.csv")
+
+    print_panel_check(panel_1, "Contract 1 panel")
+    print_panel_check(panel_2, "Contract 2 panel")
+    print_panel_check(panel_3, "Contract 3 panel")
+
+    print("\nSaved files:")
+    print("data/processed/contract_panel_1.csv")
+    print("data/processed/contract_panel_2.csv")
+    print("data/processed/contract_panel_3.csv")
