@@ -1,0 +1,5 @@
+Step 12 QC:
+Aligned all contract-3 commodity series with an outer join.
+Missing observations range from 9 (CO3) to 149 (SB3).
+No missing dates were found in the Date column.
+Missing-data treatment deferred to Step 13.
