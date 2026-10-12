@@ -1,15 +1,9 @@
 Step 13 missing-data policy
 
-The aligned panels retain all dates observed in at least one commodity.
-For each commodity, isolated one-row missing observations are forward-filled
-using the immediately preceding available settlement price. These generally
-reflect differing market holiday calendars, such as the U.S. closure for
-Martin Luther King Jr. Day on 17 January 2005.
+The aligned panels retain all dates observed in at least one commodity. These generally reflect differing market holiday calendars, such as the U.S. closure highlighting market-calendar mismatch across the commodity series for Martin Luther King Jr. Day on 17 January 2005.
 
-Missing runs longer than one observation are not filled. They remain missing
-and are retained for investigation, preventing stale prices from being carried
-over a potentially material data outage or unavailable contract period.
-
-The original outer-joined panels are retained unchanged. Separate cleaned
-panels and quality-control files record missing values before and after
-cleaning.
+Cleaning result:
+- Isolated one-row gaps were forward-filled from the previous available price.
+- No rows belonging to missing runs longer than one observation were filled.
+- Remaining missing values after cleaning were 1 for Brent, 2 for several U.S.-traded contracts, and 6 for Coffee and Sugar.
+- The cleaning pattern was identical across the first, second, and third generic contract panels.
