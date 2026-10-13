@@ -7,3 +7,12 @@ Cleaning result:
 - No rows belonging to missing runs longer than one observation were filled.
 - Remaining missing values after cleaning were 1 for Brent, 2 for several U.S.-traded contracts, and 6 for Coffee and Sugar.
 - The cleaning pattern was identical across the first, second, and third generic contract panels.
+
+Investigation of remaining Coffee gaps:
+The six unfilled KC1 observations occurred in three two-day clusters: 24–25 November 2005, 23–24 November 2006, and 22–23 November 2007. These dates coincide with the U.S. Thanksgiving holiday period and are consistent with exchange holiday or reduced-hours calendar differences. They were not forward-filled because the project policy permits filling only isolated one-day gaps.
+
+Sugar validation:
+The remaining SB1 missing observations are identical to the remaining KC1 missing observations: the two trading days around U.S. Thanksgiving in 2005, 2006, and 2007. Coffee and Sugar were therefore treated consistently.
+
+Conclusion:
+The remaining Coffee and Sugar missing observations are recurring Thanksgiving-period exchange-calendar gaps, not isolated data errors. hey remain unfilled under the policy of forward-filling only isolated one-day gaps.
