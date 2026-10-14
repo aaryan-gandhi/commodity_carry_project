@@ -1,0 +1,10 @@
+Manual validation:
+For WTI on 2005-01-04, CL1 was 43.91 and CL2 was 44.08.
+
+Formula:
+(CL1 / CL2 - 1) * (365 / 30)
+
+Result:
+-0.046922, or approximately -4.69% annualized.
+
+The saved CL roll-yield value matched the manual calculation, apart from insignificant floating-point rounding. Because CL1 was below CL2, the WTI curve was in contango and the negative result was expected.
