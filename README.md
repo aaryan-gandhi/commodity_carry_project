@@ -120,7 +120,14 @@ Reported statistics: annualised return and volatility, Sharpe, Sortino, Calmar, 
 
 ## 7. Known risks
 
-- **Carry crashes:** sharp losses when shocks invert curves.
+- **Carry crashes:**
+
+Commodity carry strategies are exposed to sudden losses when the futures curve changes sharply from backwardation to contango, or when an existing curve premium rapidly compresses. A steeply backwardated curve can reflect scarce inventories and strong immediate demand, but an unexpected supply recovery, demand shock or inventory rebuild can weaken near-dated prices relative to deferred contracts. Positions established on the assumption that the curve will remain favourable can then suffer mark-to-market losses, particularly when the strategy is concentrated in one commodity sector. Commodity futures risk premia vary with inventory conditions, meaning the economic drivers supporting carry can change over time. 
+
+**Mitigation**
+
+Stress-test the strategy against abrupt changes in curve slope and inventory conditions; cap individual commodity and sector exposures; and evaluate drawdowns during historical supply-demand shocks. Do not rely solely on the current curve shape as a predictor of future returns.
+
 - **Seasonality:** nat gas, heating oil and grains have curve shapes driven by predictable seasonal demand or harvest cycles, not scarcity. The raw signal can mistake this for carry (see open decisions).
 - **Crowding:** commodity carry is well documented; the premium may have compressed later in the sample.
 - **Structural contango:** a lasting shift, for example from shale and storage capacity, would erode the signal across energy at once.
