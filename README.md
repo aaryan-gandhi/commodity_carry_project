@@ -120,18 +120,49 @@ Reported statistics: annualised return and volatility, Sharpe, Sortino, Calmar, 
 
 ## 7. Known risks
 
-- **Carry crashes:**
+- **Carry crashes and curve rehearsals:**
 
 Commodity carry strategies are exposed to sudden losses when the futures curve changes sharply from backwardation to contango, or when an existing curve premium rapidly compresses. A steeply backwardated curve can reflect scarce inventories and strong immediate demand, but an unexpected supply recovery, demand shock or inventory rebuild can weaken near-dated prices relative to deferred contracts. Positions established on the assumption that the curve will remain favourable can then suffer mark-to-market losses, particularly when the strategy is concentrated in one commodity sector. Commodity futures risk premia vary with inventory conditions, meaning the economic drivers supporting carry can change over time. 
 
-**Mitigation**
+*Mitigation*
 
 Stress-test the strategy against abrupt changes in curve slope and inventory conditions; cap individual commodity and sector exposures; and evaluate drawdowns during historical supply-demand shocks. Do not rely solely on the current curve shape as a predictor of future returns.
 
-- **Seasonality:** nat gas, heating oil and grains have curve shapes driven by predictable seasonal demand or harvest cycles, not scarcity. The raw signal can mistake this for carry (see open decisions).
-- **Crowding:** commodity carry is well documented; the premium may have compressed later in the sample.
-- **Structural contango:** a lasting shift, for example from shale and storage capacity, would erode the signal across energy at once.
-- **Operational:** thin liquidity in agricultural contracts; delivery and negative-price risk near expiry.
+- **Seasonality:**
+
+Natural gas, heating oil and agricultural futures exhibit pronounced seasonal supply-demand patterns. Natural gas demand often rises during winter heating periods, heating oil demand can increase during colder months, and grain prices respond to planting, harvest and weather cycles. These predictable patterns can influence the futures curve independently of the scarcity premium that a carry strategy intends to capture. Research on commodity forward curves highlights the importance of explicitly accounting for seasonal effects when modelling contracts such as heating oil and natural gas.
+
+If the strategy interprets a seasonal curve pattern as a persistent carry signal, it may enter positions that perform poorly when the seasonal cycle reverses. For example, a curve shape associated with winter demand may weaken as heating demand declines and inventories recover.
+
+*Mitigation*
+Adjust signals for contract-specific seasonality, compare each contract's curve slope with its historical pattern for the same time of year, and test whether carry returns persist after seasonal adjustment. This is particularly important if the strategy compares raw curve slopes across different commodities.
+
+- **Crowding and premium compression:**
+
+Commodity carry is a well-established investment approach, so the strategy may face competition from systematic funds, commodity trading advisers and institutional investors exploiting similar futures-curve signals. If more participants trade the same positions, entry prices may become less attractive, reducing the premium available to later investors. Crowded positions can also unwind simultaneously following a common macroeconomic shock, amplifying price moves and transaction costs.
+
+Research demonstrates that futures-curve information can help identify attractive roll yields and improve commodity investment strategies, but those results do not guarantee that the same premium will persist in a different sample or trading environment.
+
+*Mitigation*
+Assess net returns after realistic transaction costs, test the strategy across different historical periods and monitor whether profitability weakens out of sample. Evaluate turnover and position concentration, and avoid assuming that historical carry premiums will remain constant.
+
+- **Structural contango Risk:**
+
+A persistent change in commodity-market structure can undermine carry signals across an entire sector. In energy, for example, changes in shale production, storage capacity, transportation infrastructure or inventory management may alter the relationship between nearby and deferred futures prices. If these changes lead to a sustained increase in storage availability or reduce the frequency of physical shortages, the historical relationship between curve shape and subsequent returns may weaken.
+
+This risk differs from a carry crash: a crash is an abrupt adverse move, whereas a structural change can gradually erode the strategy's expected return over many months or years. Evidence of structural breaks in commodity futures bases and cost-of-carry relationships supports the need to account for changing market regimes
+
+*Mitigation*
+Test performance across distinct market regimes, monitor rolling carry returns and curve characteristics, and compare historical relationships with current inventory and storage conditions. If the strategy's expected return deteriorates persistently, consider reducing exposure or revising the signal rather than assuming mean reversion will restore profitability.
+
+- **Liquidity and Operational Risk:** thin liquidity in agricultural contracts; delivery and negative-price risk near expiry.
+
+Commodity futures markets differ substantially in liquidity. Major energy and agricultural contracts may have deep markets in their most actively traded maturities, while less-traded delivery months can have wider bid–ask spreads, lower market depth and greater market impact. Consequently, a strategy that appears profitable using settlement prices may earn materially lower returns after execution costs, especially when positions must be rolled or exited during volatile markets.
+
+Expiry also creates operational risks. Futures contracts may require physical delivery under their exchange rules, and traders who unintentionally hold deliverable contracts beyond the permitted close-out date can face significant operational and financial consequences. Furthermore, extreme dislocations can produce unusual or even negative futures prices, as illustrated by the April 2020 WTI crude oil episode. Such events can invalidate simplistic return, sizing and risk-management assumptions.
+
+*Mitigation*
+Restrict trading to sufficiently liquid contracts, incorporate bid–ask spreads and market impact into backtests, and implement explicit roll calendars and pre-expiry close-out rules. Confirm contract specifications, position limits, margin requirements and exchange price-limit rules. Test the strategy under extreme price moves and verify that the backtest handles negative futures prices correctly.
 
 ---
 
