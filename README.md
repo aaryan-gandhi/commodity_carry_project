@@ -169,7 +169,11 @@ Expiry also creates operational risks. Futures contracts may require physical de
 To confirm with the team and Richard. Record the outcome in the decisions log.
 
 - [ ] **Seasonality handling.** Option A: keep raw front-spread carry and flag seasonality as a limitation. Option B: for seasonal names, use deseasonalised carry, i.e. current carry minus its trailing average for the same calendar month (feasible with gen1–gen3 data). Option C: use a 12-month spread (needs deeper contracts pulled). The chosen option is the primary spec; the others are reported as robustness checks.
+
+adjust carry according to seasonality changes/shortage or excess supply and demand.
+
 - [ ] **Out-of-sample hold-out.** Whether to reserve 2020 onwards as an untouched test period. Parameters are already fixed a priori, so this is an extra safeguard rather than essential.
+
 
 ---
 
