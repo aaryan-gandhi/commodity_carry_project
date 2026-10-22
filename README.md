@@ -154,7 +154,7 @@ This risk differs from a carry crash: a crash is an abrupt adverse move, whereas
 *Mitigation:*
 Test performance across distinct market regimes, monitor rolling carry returns and curve characteristics, and compare historical relationships with current inventory and storage conditions. If the strategy's expected return deteriorates persistently, consider reducing exposure or revising the signal rather than assuming mean reversion will restore profitability.
 
-- **Liquidity and Operational Risk:** thin liquidity in agricultural contracts; delivery and negative-price risk near expiry.
+- **Liquidity and Operational Risk:** 
 
 Commodity futures markets differ substantially in liquidity. Major energy and agricultural contracts may have deep markets in their most actively traded maturities, while less-traded delivery months can have wider bid–ask spreads, lower market depth and greater market impact. Consequently, a strategy that appears profitable using settlement prices may earn materially lower returns after execution costs, especially when positions must be rolled or exited during volatile markets.
 
